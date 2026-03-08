@@ -3,129 +3,261 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AutoCode Platform — Hệ sinh thái Automation by Nemark Digital</title>
-  <meta name="description" content="AI Coding, Anti-DDoS WAF, Tunnel Infrastructure, Academy — Nến tảng automation toàn diện từ Nemark Digital Solutions.">
+  <title>AutoCode Platform — Build the new way | Nemark Digital</title>
+  <meta name="description" content="Hệ sinh thái automation toàn diện: AI Coding, Anti-DDoS WAF, Tunnel, Academy. By Nemark Digital Solutions.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
   <link rel="stylesheet" href="/shared.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    :root { --bg-0:#050816; --bg-1:#0B0F1E; --bg-2:#151B2D; --border:rgba(124,58,237,0.1); --purple:#7C3AED; --purple-light:#A78BFA; --text-0:#F8FAFC; --text-1:#E2E8F0; --text-2:#94A3B8; --text-3:#64748B; --font:'Inter',sans-serif; }
-    *{margin:0;padding:0;box-sizing:border-box} body{font-family:var(--font);background:var(--bg-0);color:var(--text-1);overflow-x:hidden}
+    :root{--bg:#030712;--bg-1:#0a0f1e;--bg-2:#111827;--bg-card:rgba(17,24,39,.6);--surface:rgba(255,255,255,.03);--border:rgba(255,255,255,.06);--border-h:rgba(124,58,237,.25);--text:#f9fafb;--text-2:#9ca3af;--text-3:#6b7280;--purple:#8b5cf6;--purple-l:#a78bfa;--violet:#7c3aed;--pink:#ec4899;--green:#34d399;--amber:#fbbf24;--blue:#60a5fa;--red:#f87171;--font:'Inter',system-ui,sans-serif}
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:80px}
+    body{font-family:var(--font);background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    ::selection{background:rgba(139,92,246,.3)}
+    ::-webkit-scrollbar{width:4px}
+    ::-webkit-scrollbar-thumb{background:var(--bg-2);border-radius:2px}
 
-    .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 24px 80px}
-    .hero-bg{position:absolute;inset:0;overflow:hidden}
-    .glow{position:absolute;border-radius:50%;filter:blur(140px);opacity:.25}
-    .g1{width:700px;height:700px;background:#7C3AED;top:-200px;left:-200px;animation:fl 10s ease-in-out infinite}
-    .g2{width:500px;height:500px;background:#EC4899;bottom:-100px;right:-100px;animation:fl 7s ease-in-out infinite reverse}
-    .g3{width:300px;height:300px;background:#3B82F6;top:40%;left:60%;animation:fl 8s ease-in-out infinite 2s}
-    @keyframes fl{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-40px)}}
-    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(124,58,237,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,.03) 1px,transparent 1px);background-size:64px 64px}
+    /* === HERO === */
+    .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:140px 24px 100px;position:relative;overflow:hidden}
+    .hero-orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.15;pointer-events:none}
+    .orb-1{width:800px;height:800px;background:radial-gradient(circle,var(--violet),transparent 70%);top:-300px;left:-200px;animation:orb 15s ease-in-out infinite}
+    .orb-2{width:600px;height:600px;background:radial-gradient(circle,var(--pink),transparent 70%);bottom:-200px;right:-200px;animation:orb 12s ease-in-out infinite reverse}
+    .orb-3{width:400px;height:400px;background:radial-gradient(circle,var(--blue),transparent 70%);top:30%;right:10%;animation:orb 18s ease-in-out infinite 3s}
+    @keyframes orb{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(60px,-40px) scale(1.1)}66%{transform:translate(-30px,50px) scale(.9)}}
+    .hero-lines{position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(139,92,246,.02) 50%,transparent 100%),repeating-linear-gradient(90deg,transparent,transparent 119px,rgba(255,255,255,.015) 119px,rgba(255,255,255,.015) 120px),repeating-linear-gradient(0deg,transparent,transparent 119px,rgba(255,255,255,.015) 119px,rgba(255,255,255,.015) 120px)}
+    
+    .hero-inner{position:relative;max-width:900px;z-index:1}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border:1px solid var(--border);border-radius:100px;font:500 13px var(--font);color:var(--text-2);margin-bottom:40px;background:var(--surface);backdrop-filter:blur(8px);transition:border-color .3s}
+    .chip:hover{border-color:var(--border-h)}
+    .chip-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pd 2s ease infinite}
+    @keyframes pd{0%,100%{opacity:1}50%{opacity:.3}}
 
-    .hero-content{position:relative;max-width:900px}
-    .badge{display:inline-block;padding:8px 20px;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.2);border-radius:40px;font:600 13px var(--font);color:var(--purple-light);margin-bottom:24px}
-    h1{font-size:clamp(40px,7vw,72px);font-weight:900;line-height:1.05;letter-spacing:-3px;margin-bottom:24px;color:var(--text-0)}
-    .grad{background:linear-gradient(135deg,#7C3AED,#EC4899,#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .hero-p{font-size:20px;color:var(--text-2);line-height:1.7;max-width:600px;margin:0 auto 40px}
-    .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border:none;border-radius:12px;font:700 16px var(--font);cursor:pointer;transition:all .2s;text-decoration:none}
-    .btn-p{background:linear-gradient(135deg,#7C3AED,#9333EA);color:#fff;box-shadow:0 4px 24px rgba(124,58,237,.35)}
-    .btn-p:hover{box-shadow:0 8px 40px rgba(124,58,237,.55);transform:translateY(-3px)}
-    .btn-g{background:rgba(255,255,255,.05);color:var(--text-0);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(10px)}
-    .btn-g:hover{background:rgba(255,255,255,.1)}
+    .hero-title{font-size:clamp(48px,8vw,88px);font-weight:800;line-height:1;letter-spacing:-4px;margin-bottom:28px;color:var(--text)}
+    .hero-title span{display:inline-block;background:linear-gradient(135deg,var(--purple-l) 0%,var(--pink) 40%,var(--amber) 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 
-    .products{padding:100px 24px;max-width:1200px;margin:0 auto}
-    .products h2{text-align:center;font-size:36px;font-weight:800;letter-spacing:-1px;margin-bottom:12px}
-    .products .sub{text-align:center;color:var(--text-3);margin-bottom:60px;font-size:16px}
-    .prod-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-    .prod{background:rgba(21,27,45,.8);border:1px solid var(--border);border-radius:20px;padding:36px;transition:all .3s;cursor:pointer;text-decoration:none;color:inherit;display:block}
-    .prod:hover{border-color:rgba(124,58,237,.3);transform:translateY(-6px);box-shadow:0 24px 48px rgba(0,0,0,.3)}
-    .prod-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px}
-    .prod h3{font-size:22px;font-weight:700;margin-bottom:8px;color:var(--text-0)}
-    .prod p{font-size:14px;color:var(--text-3);line-height:1.7;margin-bottom:16px}
+    .hero-desc{font-size:clamp(17px,2vw,20px);font-weight:400;line-height:1.7;color:var(--text-2);max-width:580px;margin:0 auto 48px;letter-spacing:-.2px}
+
+    .hero-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:80px}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:16px 32px;border:none;border-radius:14px;font:600 15px var(--font);cursor:pointer;transition:all .25s;text-decoration:none;letter-spacing:-.2px}
+    .btn-fill{background:var(--violet);color:#fff;box-shadow:0 0 0 0 rgba(124,58,237,0),0 8px 32px rgba(124,58,237,.2)}
+    .btn-fill:hover{box-shadow:0 0 0 4px rgba(124,58,237,.15),0 12px 40px rgba(124,58,237,.35);transform:translateY(-2px)}
+    .btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+    .btn-outline:hover{border-color:var(--border-h);background:var(--surface)}
+
+    .hero-metrics{display:flex;gap:48px;justify-content:center;text-align:center}
+    .metric{opacity:0;animation:fadeUp .8s forwards}
+    .metric:nth-child(1){animation-delay:.2s}
+    .metric:nth-child(2){animation-delay:.4s}
+    .metric:nth-child(3){animation-delay:.6s}
+    .metric:nth-child(4){animation-delay:.8s}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .metric-num{font-size:42px;font-weight:800;letter-spacing:-2px;color:var(--text);display:block}
+    .metric-label{font-size:12px;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px}
+
+    /* === SECTIONS === */
+    .section{padding:120px 24px}
+    .container{max-width:1120px;margin:0 auto}
+    .section-label{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(139,92,246,.08);border-radius:20px;font:600 11px var(--font);color:var(--purple-l);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:20px}
+    .section-title{font-size:clamp(30px,4.5vw,48px);font-weight:800;letter-spacing:-2px;line-height:1.1;margin-bottom:16px}
+    .section-desc{font-size:17px;color:var(--text-3);line-height:1.7;max-width:480px}
+
+    /* === PRODUCTS === */
+    .products-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px}
+    .products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .product{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:40px;transition:all .4s;text-decoration:none;color:inherit;position:relative;overflow:hidden;display:flex;flex-direction:column;backdrop-filter:blur(8px)}
+    .product::before{content:'';position:absolute;inset:0;border-radius:20px;background:radial-gradient(600px circle at var(--mx,50%) var(--my,50%),rgba(139,92,246,.06),transparent 40%);opacity:0;transition:opacity .4s}
+    .product:hover{border-color:var(--border-h);transform:translateY(-4px)}
+    .product:hover::before{opacity:1}
+    .prod-emoji{font-size:40px;margin-bottom:24px;display:block}
+    .prod-name{font-size:22px;font-weight:700;margin-bottom:8px;letter-spacing:-.5px}
+    .prod-desc{font-size:14px;color:var(--text-3);line-height:1.7;margin-bottom:20px;flex:1}
     .prod-tags{display:flex;gap:6px;flex-wrap:wrap}
-    .tag{padding:4px 10px;background:rgba(124,58,237,.1);border-radius:12px;font:600 11px var(--font);color:var(--purple-light)}
+    .tag{padding:5px 12px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;font:500 11px var(--font);color:var(--text-3);transition:all .2s}
+    .product:hover .tag{border-color:var(--border-h);color:var(--purple-l)}
+    .prod-arrow{position:absolute;top:40px;right:40px;width:32px;height:32px;border-radius:8px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--text-3);transition:all .3s}
+    .product:hover .prod-arrow{border-color:var(--violet);color:var(--violet);transform:translate(3px,-3px)}
 
-    .stats-bar{background:var(--bg-1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:48px 24px}
-    .stats-inner{max-width:1000px;margin:0 auto;display:flex;justify-content:space-around;text-align:center}
-    .st-num{font-size:42px;font-weight:900;color:var(--text-0);display:block}
-    .st-lbl{font-size:13px;color:var(--text-3)}
+    /* === DIVIDER === */
+    .divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);max-width:1120px;margin:0 auto}
 
-    .company{padding:80px 24px;max-width:1000px;margin:0 auto;text-align:center}
-    .company h2{font-size:28px;font-weight:800;margin-bottom:8px}
-    .company .sub{color:var(--text-3);margin-bottom:32px}
-    .co-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
-    .co-item{padding:16px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:12px;font:500 13px var(--font);color:var(--text-2)}
-    .co-item:hover{border-color:rgba(124,58,237,.3)}
+    /* === FEATURES === */
+    .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+    .feature{padding:32px;border:1px solid var(--border);border-radius:16px;background:var(--bg-card);transition:all .3s;backdrop-filter:blur(8px)}
+    .feature:hover{border-color:var(--border-h)}
+    .feat-icon{font-size:28px;margin-bottom:16px}
+    .feat-title{font-size:16px;font-weight:700;margin-bottom:6px;letter-spacing:-.3px}
+    .feat-desc{font-size:13px;color:var(--text-3);line-height:1.7}
 
-    @media(max-width:768px){.prod-grid{grid-template-columns:1fr}.stats-inner{flex-wrap:wrap;gap:32px}.co-grid{grid-template-columns:1fr 1fr}}
+    /* === COMPANY === */
+    .company-section{background:var(--bg-1);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .company-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+    .company-detail{display:flex;gap:16px;padding:12px 0;border-bottom:1px solid var(--border);font-size:14px}
+    .company-detail:last-child{border:none}
+    .cd-label{color:var(--text-3);min-width:100px;font-weight:600;flex-shrink:0}
+    .cd-val{color:var(--text-2)}
+    .license-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .license-item{padding:14px;border:1px solid var(--border);border-radius:10px;font:500 12px var(--font);color:var(--text-3);text-align:center;transition:all .2s}
+    .license-item:hover{border-color:var(--border-h);color:var(--purple-l)}
+
+    /* === CTA === */
+    .cta-section{text-align:center;padding:160px 24px}
+    .cta-title{font-size:clamp(36px,6vw,64px);font-weight:800;letter-spacing:-3px;margin-bottom:24px}
+    .cta-title span{background:linear-gradient(135deg,var(--purple-l),var(--pink));background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .cta-desc{font-size:18px;color:var(--text-3);margin-bottom:40px;max-width:500px;margin-left:auto;margin-right:auto}
+    .cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    /* === RESPONSIVE === */
+    @media(max-width:768px){
+      .products-grid,.company-grid{grid-template-columns:1fr}
+      .features-grid{grid-template-columns:1fr}
+      .hero-metrics{flex-wrap:wrap;gap:24px}
+      .products-top{flex-direction:column;align-items:flex-start;gap:16px}
+      .license-grid{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
 
+<!-- HERO -->
 <div class="hero">
-  <div class="hero-bg"><div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div><div class="hero-grid"></div></div>
-  <div class="hero-content">
-    <div class="badge">⚡ Nemark Digital Solutions — MST: 0111278699</div>
-    <h1>Hệ sinh thái<br><span class="grad">Automation toàn diện</span></h1>
-    <p class="hero-p">AI Coding · Anti-DDoS WAF · Tunnel Infrastructure · Academy — Giải pháp công nghệ cho developers và doanh nghiệp.</p>
-    <div class="cta">
-      <a href="/dashboard" class="btn btn-p">📊 Vào Dashboard</a>
-      <a href="/academy/" class="btn btn-g">🎓 Academy</a>
+  <div class="hero-orb orb-1"></div>
+  <div class="hero-orb orb-2"></div>
+  <div class="hero-orb orb-3"></div>
+  <div class="hero-lines"></div>
+  
+  <div class="hero-inner">
+    <div class="chip"><span class="chip-dot"></span>Nemark Digital Solutions — Build the new way</div>
+    
+    <h1 class="hero-title">
+      Automation<br><span>toàn diện</span>
+    </h1>
+    
+    <p class="hero-desc">AI Coding · Anti-DDoS · Tunnel · Academy — Hệ sinh thái công nghệ cho developers và doanh nghiệp Việt Nam.</p>
+    
+    <div class="hero-buttons">
+      <a href="/dashboard" class="btn btn-fill">Vào Dashboard →</a>
+      <a href="/academy/" class="btn btn-outline">🎓 Khám phá Academy</a>
+    </div>
+
+    <div class="hero-metrics">
+      <div class="metric"><span class="metric-num">4</span><span class="metric-label">Sản phẩm</span></div>
+      <div class="metric"><span class="metric-num">12</span><span class="metric-label">Khóa học</span></div>
+      <div class="metric"><span class="metric-num">21</span><span class="metric-label">WAF Rules</span></div>
+      <div class="metric"><span class="metric-num">∞</span><span class="metric-label">Tunnels</span></div>
     </div>
   </div>
 </div>
 
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div><span class="st-num">4</span><span class="st-lbl">Sản phẩm</span></div>
-    <div><span class="st-num">12</span><span class="st-lbl">Khóa học</span></div>
-    <div><span class="st-num">21</span><span class="st-lbl">WAF Rules</span></div>
-    <div><span class="st-num">6</span><span class="st-lbl">Ngôn ngữ</span></div>
-  </div>
-</div>
+<div class="divider"></div>
 
-<div class="products">
-  <h2>Hệ sinh thái sản phẩm</h2>
-  <p class="sub">Tất cả trong một nền tảng, đồng bộ và kết nối</p>
-  <div class="prod-grid">
-    <a href="/dashboard" class="prod">
-      <div class="prod-icon" style="background:linear-gradient(135deg,#7C3AED,#9333EA)">🤖</div>
-      <h3>AutoCode AI</h3>
-      <p>Tự động code, review, deploy với AI agents. Pipeline 7 bước: Clone → Plan → Code → Test → Review → Push → PR.</p>
-      <div class="prod-tags"><span class="tag">Gemini AI</span><span class="tag">TypeScript</span><span class="tag">Git Automation</span></div>
-    </a>
-    <a href="/waf" class="prod">
-      <div class="prod-icon" style="background:linear-gradient(135deg,#F87171,#EF4444)">🛡️</div>
-      <h3>Mango WAF</h3>
-      <p>Anti-DDoS L7 với 10 lớp phòng thủ. OWASP CRS, JA3/JA4 fingerprint, AI behavior analysis, Smart CDN.</p>
-      <div class="prod-tags"><span class="tag">21 Rules</span><span class="tag">Go</span><span class="tag">Anti-DDoS</span></div>
-    </a>
-    <a href="/tunnel" class="prod">
-      <div class="prod-icon" style="background:linear-gradient(135deg,#34D399,#10B981)">🔗</div>
-      <h3>ProxVN Tunnel</h3>
-      <p>Expose local services ra internet. HTTP/TCP/UDP tunneling, TLS 1.3, JWT auth, auto SSL subdomain.</p>
-      <div class="prod-tags"><span class="tag">TLS 1.3</span><span class="tag">Go</span><span class="tag">CloudFlare</span></div>
-    </a>
-    <a href="/academy/" class="prod">
-      <div class="prod-icon" style="background:linear-gradient(135deg,#FBBF24,#F59E0B)">🎓</div>
-      <h3>Nemark Academy</h3>
-      <p>Nền tảng tư vấn giáo dục lập trình. 12 khóa học, code playground, AI tutor. Cho mọi lứa tuổi.</p>
-      <div class="prod-tags"><span class="tag">12 Courses</span><span class="tag">Code Editor</span><span class="tag">AI Tutor</span></div>
-    </a>
-  </div>
-</div>
+<!-- PRODUCTS -->
+<section class="section" id="products">
+  <div class="container">
+    <div class="products-top">
+      <div>
+        <div class="section-label">🧩 Ecosystem</div>
+        <h2 class="section-title">Mỗi sản phẩm,<br>một sức mạnh riêng.</h2>
+      </div>
+      <p class="section-desc">Kết nối chặt chẽ trong hệ sinh thái đồng bộ. Một dashboard, tất cả công cụ.</p>
+    </div>
 
-<div class="company">
-  <h2>CÔNG TY TNHH TRUYỀN THÔNG GIẢI PHÁP SỐ NEMARK</h2>
-  <p class="sub">Nghiên cứu khoa học và phát triển công nghệ · Đại diện: Mai Tiến Đức</p>
-  <div class="co-grid">
-    <div class="co-item">💻 Lập trình & Phần mềm</div>
-    <div class="co-item">🛡️ Bảo mật & WAF</div>
-    <div class="co-item">📡 Viễn thông & Hạ tầng</div>
-    <div class="co-item">🎓 Tư vấn giáo dục CNTT</div>
-    <div class="co-item">🎮 Game & Nội dung số</div>
-    <div class="co-item">🤖 AI & Automation</div>
+    <div class="products-grid">
+      <a href="/dashboard" class="product" onmousemove="this.style.setProperty('--mx',event.offsetX+'px');this.style.setProperty('--my',event.offsetY+'px')">
+        <span class="prod-arrow">↗</span>
+        <span class="prod-emoji">🤖</span>
+        <div class="prod-name">AutoCode AI</div>
+        <p class="prod-desc">Tự động code, review, deploy với AI agents. Pipeline 7 bước từ clone đến pull request.</p>
+        <div class="prod-tags"><span class="tag">Gemini AI</span><span class="tag">TypeScript</span><span class="tag">7-step Pipeline</span></div>
+      </a>
+
+      <a href="/waf" class="product" onmousemove="this.style.setProperty('--mx',event.offsetX+'px');this.style.setProperty('--my',event.offsetY+'px')">
+        <span class="prod-arrow">↗</span>
+        <span class="prod-emoji">🛡️</span>
+        <div class="prod-name">Mango WAF</div>
+        <p class="prod-desc">Anti-DDoS L7 với 10 lớp phòng thủ. OWASP CRS, JA3 fingerprint, AI behavior analysis.</p>
+        <div class="prod-tags"><span class="tag">Go</span><span class="tag">21 Rules</span><span class="tag">10 Layers</span></div>
+      </a>
+
+      <a href="/tunnel" class="product" onmousemove="this.style.setProperty('--mx',event.offsetX+'px');this.style.setProperty('--my',event.offsetY+'px')">
+        <span class="prod-arrow">↗</span>
+        <span class="prod-emoji">🔗</span>
+        <div class="prod-name">ProxVN Tunnel</div>
+        <p class="prod-desc">Expose local services ra internet. HTTP/TCP/UDP tunneling, TLS 1.3, auto SSL subdomain.</p>
+        <div class="prod-tags"><span class="tag">TLS 1.3</span><span class="tag">Go</span><span class="tag">Multi-protocol</span></div>
+      </a>
+
+      <a href="/academy/" class="product" onmousemove="this.style.setProperty('--mx',event.offsetX+'px');this.style.setProperty('--my',event.offsetY+'px')">
+        <span class="prod-arrow">↗</span>
+        <span class="prod-emoji">🎓</span>
+        <div class="prod-name">Nemark Academy</div>
+        <p class="prod-desc">Nền tảng tư vấn giáo dục lập trình. 12 khóa học, code playground trực tiếp, AI tutor.</p>
+        <div class="prod-tags"><span class="tag">12 Courses</span><span class="tag">Code Editor</span><span class="tag">AI Tutor</span></div>
+      </a>
+    </div>
   </div>
-</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEATURES -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">✨ Capabilities</div>
+    <h2 class="section-title">Tại sao chọn AutoCode?</h2>
+    <div class="features-grid">
+      <div class="feature"><div class="feat-icon">⚡</div><div class="feat-title">Tự động hóa hoàn toàn</div><p class="feat-desc">Từ clone repo đến tạo PR — AI agents làm mọi thứ tự động, 24/7.</p></div>
+      <div class="feature"><div class="feat-icon">🔐</div><div class="feat-title">Bảo mật đa lớp</div><p class="feat-desc">WAF 10 lớp phòng thủ, JWT auth, bcrypt hashing, TLS 1.3 end-to-end.</p></div>
+      <div class="feature"><div class="feat-icon">🌍</div><div class="feat-title">Open Port thông minh</div><p class="feat-desc">Tunnel expose services với SSL tự động. Không cần IP tĩnh hay forward port.</p></div>
+      <div class="feature"><div class="feat-icon">📚</div><div class="feat-title">Học mọi lúc, mọi nơi</div><p class="feat-desc">Code playground chạy trực tiếp trên browser. Không cần cài đặt gì.</p></div>
+      <div class="feature"><div class="feat-icon">🏢</div><div class="feat-title">Cho doanh nghiệp</div><p class="feat-desc">Multi-tenant, API keys, usage quotas, billing. Sẵn sàng thương mại.</p></div>
+      <div class="feature"><div class="feat-icon">🚀</div><div class="feat-title">Deploy dễ dàng</div><p class="feat-desc">Một lệnh deploy lên VPS. PM2, Docker, aaPanel — tùy chọn.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMPANY -->
+<section class="section company-section">
+  <div class="container">
+    <div class="company-grid">
+      <div>
+        <div class="section-label">🏢 Về chúng tôi</div>
+        <h2 class="section-title" style="margin-bottom:32px">Nemark Digital<br>Solutions</h2>
+        <div class="company-detail"><span class="cd-label">Tên quốc tế</span><span class="cd-val">Nemark Digital Solutions Media Co., Ltd</span></div>
+        <div class="company-detail"><span class="cd-label">MST</span><span class="cd-val">0111278699</span></div>
+        <div class="company-detail"><span class="cd-label">Đại diện</span><span class="cd-val">Mai Tiến Đức</span></div>
+        <div class="company-detail"><span class="cd-label">Địa chỉ</span><span class="cd-val">Số 19, Đường 452, Linh Sơn, Hạ Bằng, Hà Nội</span></div>
+        <div class="company-detail"><span class="cd-label">Tình trạng</span><span class="cd-val" style="color:var(--green)">● Đang hoạt động</span></div>
+      </div>
+      <div>
+        <h3 style="font-size:14px;color:var(--text-3);margin-bottom:20px;text-transform:uppercase;letter-spacing:1.5px">Ngành nghề đăng ký</h3>
+        <div class="license-grid">
+          <div class="license-item">💻 Lập trình & Phần mềm</div>
+          <div class="license-item">🛡️ Bảo mật & WAF</div>
+          <div class="license-item">📡 Viễn thông & Hạ tầng</div>
+          <div class="license-item">🎓 Tư vấn giáo dục CNTT</div>
+          <div class="license-item">🎮 Game & Nội dung số</div>
+          <div class="license-item">🤖 AI & Automation</div>
+          <div class="license-item">🔬 R&D Khoa học CN</div>
+          <div class="license-item">🏠 BĐS & Đầu tư</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="cta-title">Bắt đầu với<br><span>AutoCode</span> ngay.</h2>
+  <p class="cta-desc">Miễn phí. Không cần thẻ tín dụng. Deploy trong 5 phút.</p>
+  <div class="cta-buttons">
+    <a href="/dashboard" class="btn btn-fill">📊 Dashboard</a>
+    <a href="/academy/" class="btn btn-outline">🎓 Academy</a>
+    <a href="/waf" class="btn btn-outline">🛡️ WAF</a>
+    <a href="/tunnel" class="btn btn-outline">🔗 Tunnel</a>
+  </div>
+</section>
 
 <script src="/shared.js"></script>
 <script>createGlobalNav('home'); createGlobalFooter();</script>
