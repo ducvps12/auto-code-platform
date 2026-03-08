@@ -7,29 +7,12 @@
   <meta name="description" content="Nền tảng học tập số từ Nemark Digital Solutions. Tư vấn giáo dục lập trình cho mọi lứa tuổi.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/shared.css">
   <link rel="stylesheet" href="/academy/academy.css">
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="/academy/" class="nav-brand">
-      <span class="brand-icon">🎓</span>
-      <span class="brand-text">Nemark <span class="brand-accent">Academy</span></span>
-    </a>
-    <div class="nav-links">
-      <a href="#courses">Khóa học</a>
-      <a href="#playground">Code Playground</a>
-      <a href="#paths">Lộ trình</a>
-      <a href="/">Dashboard ⚡</a>
-    </div>
-    <div class="nav-actions">
-      <button class="btn btn-ghost" onclick="showLogin()">Đăng nhập</button>
-      <button class="btn btn-primary" onclick="showRegister()">Bắt đầu học</button>
-    </div>
-  </div>
-</nav>
+<!-- Shared nav injected by JS -->
 
 <!-- HERO -->
 <section class="hero">
@@ -220,65 +203,8 @@
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand">🎓 Nemark Academy</div>
-        <p class="footer-desc">Nền tảng tư vấn giáo dục lập trình<br>© 2026 Nemark Digital Solutions Co., Ltd</p>
-      </div>
-      <div>
-        <h4>Sản phẩm</h4>
-        <a href="/">⚡ AutoCode Platform</a>
-        <a href="/academy/">🎓 Academy</a>
-        <a href="#">🛡️ Mango WAF</a>
-        <a href="#">🔗 ProxVN Tunnel</a>
-      </div>
-      <div>
-        <h4>Liên hệ</h4>
-        <a href="tel:0914659183">📞 0914 659 183</a>
-        <a href="mailto:contact@nemark.digital">✉️ contact@nemark.digital</a>
-        <a href="#">📍 Hà Nội, Việt Nam</a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<!-- AUTH MODALS -->
-<div class="modal-bg" id="login-modal">
-  <div class="modal">
-    <div class="modal-top"><h2>Đăng nhập</h2><button class="modal-x" onclick="closeModal('login-modal')">✕</button></div>
-    <form onsubmit="handleLogin(event)">
-      <div class="modal-bd">
-        <div class="field"><label>Email</label><input type="email" name="email" required placeholder="your@email.com"></div>
-        <div class="field"><label>Mật khẩu</label><input type="password" name="password" required placeholder="••••••••"></div>
-      </div>
-      <div class="modal-ft">
-        <button type="button" class="btn btn-ghost" onclick="closeModal('login-modal');showRegister()">Chưa có tài khoản?</button>
-        <button type="submit" class="btn btn-primary">Đăng nhập</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="modal-bg" id="register-modal">
-  <div class="modal">
-    <div class="modal-top"><h2>Tạo tài khoản</h2><button class="modal-x" onclick="closeModal('register-modal')">✕</button></div>
-    <form onsubmit="handleRegister(event)">
-      <div class="modal-bd">
-        <div class="field"><label>Họ tên</label><input type="text" name="name" required placeholder="Nguyễn Văn A"></div>
-        <div class="field"><label>Email</label><input type="email" name="email" required placeholder="your@email.com"></div>
-        <div class="field"><label>Mật khẩu</label><input type="password" name="password" required minlength="8" placeholder="Tối thiểu 8 ký tự"></div>
-      </div>
-      <div class="modal-ft">
-        <button type="button" class="btn btn-ghost" onclick="closeModal('register-modal');showLogin()">Đã có tài khoản?</button>
-        <button type="submit" class="btn btn-primary">Đăng ký miễn phí</button>
-      </div>
-    </form>
-  </div>
-</div>
-
+<script src="/shared.js"></script>
+<script>createGlobalNav('academy'); createGlobalFooter();</script>
 <script src="/academy/academy.js"></script>
 </body>
 </html>

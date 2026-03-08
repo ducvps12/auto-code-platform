@@ -61,20 +61,46 @@ app.get('/api/waf/threats', async (_req, res) => {
   } catch { res.json({ threats: [], online: false }); }
 });
 
-// ============ DASHBOARD FALLBACK ============
-app.get('*', (_req, res) => {
+// ============ PAGE ROUTES ============
+app.get('/', (_req, res) => {
+  res.sendFile(path.join(publicDir, 'landing.html'));
+});
+
+app.get('/dashboard', (_req, res) => {
   res.sendFile(path.join(publicDir, 'index.html'));
+});
+
+app.get('/waf', (_req, res) => {
+  res.sendFile(path.join(publicDir, 'waf.html'));
+});
+
+app.get('/tunnel', (_req, res) => {
+  res.sendFile(path.join(publicDir, 'tunnel.html'));
+});
+
+// ============ SPA FALLBACK ============
+app.get('*', (req, res) => {
+  // Academy has its own index
+  if (req.path.startsWith('/academy')) {
+    return res.sendFile(path.join(publicDir, 'academy', 'index.html'));
+  }
+  res.sendFile(path.join(publicDir, 'landing.html'));
 });
 
 // ============ ERROR HANDLER ============
 app.use(errorHandler);
 
 // ============ START ============
-app.listen(PORT, () => {
-  console.log(`🚀 Auto-Code API running on port ${PORT}`);
-  console.log(`📋 Health:     http://localhost:${PORT}/health`);
-  console.log(`🔑 API:        http://localhost:${PORT}/api`);
-  console.log(`🖥️  Dashboard:  http://localhost:${PORT}`);
+const server = app.listen(PORT, () => {
+  console.log(`\n⚡ AutoCode Platform v0.3.0`);
+  console.log(`   Nemark Digital Solutions — MST: 0111278699\n`);
+  console.log(`   🏠 Landing:    http://localhost:${PORT}`);
+  console.log(`   📊 Dashboard:  http://localhost:${PORT}/dashboard`);
+  console.log(`   🎓 Academy:    http://localhost:${PORT}/academy/`);
+  console.log(`   🛡️ WAF:        http://localhost:${PORT}/waf`);
+  console.log(`   🔗 Tunnel:     http://localhost:${PORT}/tunnel`);
+  console.log(`   📋 Health:     http://localhost:${PORT}/health`);
+  console.log(`   🔑 API:        http://localhost:${PORT}/api\n`);
 });
 
 export default app;

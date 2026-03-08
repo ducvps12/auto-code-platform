@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mango WAF — Anti-DDoS Protection | AutoCode Platform</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+  <link rel="stylesheet" href="/shared.css">
+  <style>
+    :root{--bg-0:#050816;--bg-1:#0B0F1E;--bg-2:#151B2D;--border:rgba(124,58,237,.1);--text-0:#F8FAFC;--text-1:#E2E8F0;--text-2:#94A3B8;--text-3:#64748B;--purple:#7C3AED;--green:#34D399;--red:#F87171;--amber:#FBBF24;--font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace}
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font);background:var(--bg-0);color:var(--text-1);padding-top:56px}
+    .wrap{max-width:1200px;margin:0 auto;padding:40px 24px}
+    .page-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}
+    .page-head h1{font-size:28px;font-weight:800;display:flex;align-items:center;gap:12px}
+    .page-head p{color:var(--text-3);font-size:14px;margin-top:4px}
+    .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+    .stat{padding:24px;background:rgba(21,27,45,.8);border:1px solid var(--border);border-radius:16px}
+    .stat-label{font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+    .stat-val{font-size:32px;font-weight:800;color:var(--text-0)}
+    .stat-sub{font-size:12px;color:var(--text-3);margin-top:4px}
+    .card{background:rgba(21,27,45,.8);border:1px solid var(--border);border-radius:16px;margin-bottom:20px}
+    .card-head{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid var(--border)}
+    .card-head h3{font-size:14px;font-weight:600;color:var(--text-2)}
+    .card-body{padding:24px}
+    .layers{display:flex;flex-direction:column;gap:8px}
+    .layer{display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(255,255,255,.02);border-radius:10px;font-size:13px}
+    .layer-num{width:28px;height:28px;background:linear-gradient(135deg,var(--purple),#9333ea);border-radius:8px;display:flex;align-items:center;justify-content:center;font:700 11px var(--font);color:#fff;flex-shrink:0}
+    .layer-name{flex:1;font-weight:600;color:var(--text-0)}
+    .layer-desc{color:var(--text-3);font-size:12px}
+    .layer-status{padding:3px 8px;border-radius:12px;font:600 10px var(--font)}
+    .on{background:rgba(52,211,153,.1);color:var(--green)}
+    .off{background:rgba(100,116,139,.1);color:var(--text-3)}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .pill{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:20px;font:600 11px var(--font)}
+    .pill-green{background:rgba(52,211,153,.1);color:var(--green)}
+    .pill-amber{background:rgba(251,191,36,.1);color:var(--amber)}
+    .pulse{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pl 2s ease infinite}
+    @keyframes pl{0%,100%{opacity:1}50%{opacity:.3}}
+    @media(max-width:768px){.stats-row,.grid-2{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="page-head">
+    <div><h1>🛡️ Mango WAF</h1><p>Anti-DDoS L7 Protection — 10-Layer Defense System</p></div>
+    <div><span class="pill pill-green"><span class="pulse"></span>Running</span></div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat"><div class="stat-label">Total Requests</div><div class="stat-val" id="w-requests">—</div></div>
+    <div class="stat"><div class="stat-label">Blocked</div><div class="stat-val" id="w-blocked">—</div></div>
+    <div class="stat"><div class="stat-label">Active Connections</div><div class="stat-val" id="w-conns">—</div></div>
+    <div class="stat"><div class="stat-label">Current RPS</div><div class="stat-val" id="w-rps">—</div></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-head"><h3>🔒 Defense Layers</h3></div>
+      <div class="card-body">
+        <div class="layers">
+          <div class="layer"><span class="layer-num">0</span><span class="layer-name">XDP/eBPF</span><span class="layer-desc">Hardware filtering</span><span class="layer-status off">Linux only</span></div>
+          <div class="layer"><span class="layer-num">1</span><span class="layer-name">TLS Early Reject</span><span class="layer-desc">Invalid handshake</span><span class="layer-status on">Active</span></div>
+          <div class="layer"><span class="layer-num">2</span><span class="layer-name">Fingerprinting</span><span class="layer-desc">JA3/JA4/H2</span><span class="layer-status on">Active</span></div>
+          <div class="layer"><span class="layer-num">3</span><span class="layer-name">IP Intelligence</span><span class="layer-desc">Reputation & GeoIP</span><span class="layer-status off">Disabled</span></div>
+          <div class="layer"><span class="layer-num">4</span><span class="layer-name">WAF Rules</span><span class="layer-desc">OWASP CRS</span><span class="layer-status on">21 rules</span></div>
+          <div class="layer"><span class="layer-num">5</span><span class="layer-name">JS Challenge</span><span class="layer-desc">Proof-of-Work</span><span class="layer-status on">Active</span></div>
+          <div class="layer"><span class="layer-num">6</span><span class="layer-name">AI Behavior</span><span class="layer-desc">Anomaly detection</span><span class="layer-status on">Active</span></div>
+          <div class="layer"><span class="layer-num">7</span><span class="layer-name">Adaptive</span><span class="layer-desc">Learning baseline</span><span class="layer-status on">Active</span></div>
+          <div class="layer"><span class="layer-num">8</span><span class="layer-name">Smart CDN</span><span class="layer-desc">Ristretto cache</span><span class="layer-status on">128MB</span></div>
+          <div class="layer"><span class="layer-num">9</span><span class="layer-name">Load Balancer</span><span class="layer-desc">Upstream routing</span><span class="layer-status on">Active</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>📊 Live Stats</h3></div>
+      <div class="card-body" id="waf-live">
+        <p style="color:var(--text-3)">Loading WAF data...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/shared.js"></script>
+<script>
+  createGlobalNav('waf');
+  createGlobalFooter();
+  
+  async function loadWaf() {
+    try {
+      const r = await fetch('/api/waf/stats');
+      const d = await r.json();
+      if (d.error) throw new Error(d.error);
+      document.getElementById('w-requests').textContent = (d.total_requests||0).toLocaleString();
+      document.getElementById('w-blocked').textContent = (d.blocked_requests||0).toLocaleString();
+      document.getElementById('w-conns').textContent = d.active_conns||0;
+      document.getElementById('w-rps').textContent = d.current_rps||0;
+      document.getElementById('waf-live').innerHTML = `<pre style="font:400 12px/1.8 var(--mono);color:var(--text-2)">${JSON.stringify(d, null, 2)}</pre>`;
+    } catch(e) {
+      document.getElementById('waf-live').innerHTML = `<p style="color:var(--amber)">⚠️ WAF offline hoặc chưa khởi động<br><br><span style="font-size:12px;color:var(--text-3)">Chạy: <code>mango-shield.exe -config config/local.yaml</code></span></p>`;
+    }
+  }
+  loadWaf();
+  setInterval(loadWaf, 5000);
+</script>
+</body>
+</html>

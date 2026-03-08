@@ -1,0 +1,66 @@
+/* ============================================
+   AutoCode Ecosystem — Shared CSS
+   Unified nav, footer, and base styles
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ====== ECOSYSTEM NAV ====== */
+.eco-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: rgba(5, 8, 22, 0.92); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+}
+.eco-nav-inner {
+  max-width: 1280px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between; height: 56px;
+}
+.eco-brand { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.eco-brand-icon { font-size: 22px; }
+.eco-brand-name { font: 800 17px 'Inter', sans-serif; color: #F8FAFC; }
+.eco-accent { background: linear-gradient(135deg, #7C3AED, #EC4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.eco-brand-by { font-size: 10px; color: #64748B; padding: 2px 6px; border: 1px solid rgba(100,116,139,0.2); border-radius: 4px; }
+
+.eco-nav-links { display: flex; gap: 4px; }
+.eco-nav-links a {
+  color: #64748B; text-decoration: none; font: 500 13px 'Inter', sans-serif;
+  padding: 6px 14px; border-radius: 8px; transition: all 0.15s;
+}
+.eco-nav-links a:hover { color: #E2E8F0; background: rgba(124, 58, 237, 0.08); }
+.eco-nav-links a.active { color: #A78BFA; background: rgba(124, 58, 237, 0.15); }
+
+.eco-nav-right { display: flex; align-items: center; gap: 8px; }
+.eco-user { font: 500 13px 'Inter', sans-serif; color: #94A3B8; }
+
+.eco-btn { display: inline-flex; align-items: center; gap: 6px; font: 600 13px 'Inter', sans-serif; border: none; border-radius: 8px; cursor: pointer; transition: all 0.15s; }
+.eco-btn-primary { padding: 8px 16px; background: linear-gradient(135deg, #7C3AED, #9333EA); color: #fff; box-shadow: 0 2px 12px rgba(124,58,237,0.3); }
+.eco-btn-primary:hover { box-shadow: 0 4px 20px rgba(124,58,237,0.5); transform: translateY(-1px); }
+.eco-btn-ghost { padding: 8px 16px; background: transparent; color: #94A3B8; border: 1px solid rgba(148,163,184,0.15); }
+.eco-btn-ghost:hover { border-color: #7C3AED; color: #fff; }
+.eco-btn-sm { padding: 5px 10px; font-size: 11px; background: rgba(248,113,113,0.1); color: #F87171; border-radius: 6px; }
+
+.eco-menu-toggle { display: none; background: none; border: none; color: #E2E8F0; font-size: 20px; cursor: pointer; }
+
+/* ====== ECOSYSTEM FOOTER ====== */
+.eco-footer { border-top: 1px solid rgba(124,58,237,0.1); background: #050816; padding: 48px 0 32px; }
+.eco-footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+.eco-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+.eco-footer-brand { font: 800 18px 'Inter', sans-serif; color: #F8FAFC; margin-bottom: 12px; }
+.eco-footer p { font: 400 13px/1.7 'Inter', sans-serif; color: #64748B; }
+.eco-footer-copy { margin-top: 16px; font-size: 11px !important; }
+.eco-footer-col h4 { font: 600 11px 'Inter', sans-serif; text-transform: uppercase; letter-spacing: 1.5px; color: #475569; margin-bottom: 12px; }
+.eco-footer-col a { display: block; font: 400 13px 'Inter', sans-serif; color: #94A3B8; text-decoration: none; padding: 3px 0; transition: color 0.15s; }
+.eco-footer-col a:hover { color: #A78BFA; }
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  .eco-nav-links, .eco-nav-right { display: none; }
+  .eco-menu-toggle { display: block; }
+  .eco-nav-inner.open .eco-nav-links,
+  .eco-nav-inner.open .eco-nav-right {
+    display: flex; flex-direction: column; position: absolute;
+    top: 56px; left: 0; right: 0; background: rgba(5,8,22,0.97);
+    padding: 16px; gap: 8px; border-bottom: 1px solid rgba(124,58,237,0.1);
+  }
+  .eco-footer-grid { grid-template-columns: 1fr 1fr; }
+}

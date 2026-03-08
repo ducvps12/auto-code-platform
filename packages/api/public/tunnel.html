@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProxVN Tunnel — Infrastructure | AutoCode Platform</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔗</text></svg>">
+  <link rel="stylesheet" href="/shared.css">
+  <style>
+    :root{--bg-0:#050816;--bg-1:#0B0F1E;--bg-2:#151B2D;--border:rgba(124,58,237,.1);--text-0:#F8FAFC;--text-1:#E2E8F0;--text-2:#94A3B8;--text-3:#64748B;--purple:#7C3AED;--green:#34D399;--font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace}
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font);background:var(--bg-0);color:var(--text-1);padding-top:56px}
+    .wrap{max-width:1200px;margin:0 auto;padding:40px 24px}
+    .page-head{margin-bottom:32px}
+    .page-head h1{font-size:28px;font-weight:800;display:flex;align-items:center;gap:12px}
+    .page-head p{color:var(--text-3);font-size:14px;margin-top:4px}
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+    .feat{padding:24px;background:rgba(21,27,45,.8);border:1px solid var(--border);border-radius:16px;transition:all .3s}
+    .feat:hover{border-color:rgba(124,58,237,.3);transform:translateY(-3px)}
+    .feat-icon{font-size:32px;margin-bottom:12px}
+    .feat h3{font-size:16px;font-weight:700;color:var(--text-0);margin-bottom:6px}
+    .feat p{font-size:13px;color:var(--text-3);line-height:1.6}
+    .card{background:rgba(21,27,45,.8);border:1px solid var(--border);border-radius:16px;margin-bottom:20px}
+    .card-head{padding:16px 24px;border-bottom:1px solid var(--border)}
+    .card-head h3{font-size:14px;font-weight:600;color:var(--text-2)}
+    .card-body{padding:24px}
+    .cmd{background:var(--bg-0);padding:16px;border-radius:10px;font:400 13px/1.8 var(--mono);color:var(--green);overflow-x:auto;margin-bottom:12px}
+    .cmd .c{color:var(--text-3)}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .pill{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:20px;font:600 11px var(--font)}
+    .pill-green{background:rgba(52,211,153,.1);color:var(--green)}
+    @media(max-width:768px){.features,.grid-2{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="page-head">
+    <h1>🔗 ProxVN Tunnel</h1>
+    <p>Expose local services to the internet — HTTP/TCP/UDP Tunneling Platform</p>
+  </div>
+
+  <div class="features">
+    <div class="feat">
+      <div class="feat-icon">🌐</div>
+      <h3>HTTP Tunnel</h3>
+      <p>Auto SSL subdomain, HTTPS proxy. Expose web apps với domain riêng.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">🔌</div>
+      <h3>TCP Tunnel</h3>
+      <p>SSH, RDP, Database forwarding. Kết nối mọi service qua TCP.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">📡</div>
+      <h3>UDP Tunnel</h3>
+      <p>Game servers, real-time apps. Low-latency UDP forwarding.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">🔒</div>
+      <h3>TLS 1.3</h3>
+      <p>End-to-end encryption. Certificate pinning, JWT authentication.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">📁</div>
+      <h3>File Sharing</h3>
+      <p>WebDAV-based secure file sharing với auth và permissions.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">📊</div>
+      <h3>Dashboard</h3>
+      <p>Web dashboard quản lý clients, bandwidth, kết nối real-time.</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-head"><h3>🖥️ Server</h3></div>
+      <div class="card-body">
+        <div class="cmd">
+          <span class="c"># Khởi động server</span><br>
+          proxvn-server.exe -port 8881<br><br>
+          <span class="c"># Dashboard: http://localhost:8881/dashboard/</span><br>
+          <span class="c"># Tunnel port: 8882 (TLS)</span><br>
+          <span class="c"># Default: admin / admin123</span>
+        </div>
+        <p style="font-size:12px;color:var(--text-3)">Server quản lý connections và routing cho clients.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>💻 Client</h3></div>
+      <div class="card-body">
+        <div class="cmd">
+          <span class="c"># Kết nối và expose port 3000</span><br>
+          proxvn-client.exe -server localhost:8882 -local 3000<br><br>
+          <span class="c"># Expose SSH (port 22)</span><br>
+          proxvn-client.exe -server localhost:8882 -local 22 -type tcp
+        </div>
+        <p style="font-size:12px;color:var(--text-3)">Client chạy trên máy cần expose services.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h3>🏗️ Architecture</h3></div>
+    <div class="card-body">
+      <div class="cmd" style="color:var(--text-2)">
+        Client (local)              Server (VPS)             Internet<br>
+        ┌──────────┐    TLS 1.3    ┌──────────┐    HTTPS    ┌──────────┐<br>
+        │ localhost │ ──────────── │ ProxVN   │ ──────────  │  Users   │<br>
+        │ :3000     │    :8882     │ Server   │  subdomain  │          │<br>
+        └──────────┘              └──────────┘             └──────────┘<br>
+        <br>
+        Protocols:  HTTP ✓  TCP ✓  UDP ✓  WebSocket ✓<br>
+        Security:   TLS 1.3 ✓  JWT Auth ✓  Cert Pinning ✓
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/shared.js"></script>
+<script>createGlobalNav('tunnel'); createGlobalFooter();</script>
+</body>
+</html>
