@@ -1,0 +1,32 @@
+{
+  "name": "auto-code",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Autonomous Coding Infrastructure - AI agents that code, test, and create PRs on your VPS",
+  "workspaces": [
+    "packages/shared",
+    "packages/database",
+    "packages/api",
+    "packages/worker"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:worker\"",
+    "dev:api": "npm run dev -w packages/api",
+    "dev:worker": "npm run dev -w packages/worker",
+    "build": "npm run build -w packages/shared && npm run build -w packages/database && npm run build -w packages/api && npm run build -w packages/worker",
+    "db:migrate": "npm run migrate -w packages/database",
+    "db:generate": "npm run generate -w packages/database",
+    "db:seed": "npm run seed -w packages/database",
+    "test": "npm run test --workspaces --if-present",
+    "test:e2e": "node scripts/e2e-test.mjs",
+    "lint": "eslint packages/*/src/**/*.ts",
+    "clean": "rimraf packages/*/dist"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.3",
+    "eslint": "^9.18.0",
+    "@types/node": "^22.12.0"
+  }
+}

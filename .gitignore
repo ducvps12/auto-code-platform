@@ -1,0 +1,65 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Go binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Certificates
+*.pem
+*.key
+*.crt
+*.csr
+cert-pin.txt
+server.crt
+server.key
+
+# Docker volumes
+postgres_data/
+redis_data/
+
+# Temp
+tmp/
+/tmp/
+*.tmp
+
+# Prisma
+packages/database/prisma/migrations/
+
+# Go
+packages/mango-waf/GeoLite2-*.mmdb
+packages/proxvn-tunnel/src/backend/proxvn.db

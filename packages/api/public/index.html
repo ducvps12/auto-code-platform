@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoCode — AI Coding Infrastructure</title>
+  <meta name="description" content="Autonomous coding infrastructure powered by AI agents.">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+</head>
+<body>
+
+<div id="toast-container" class="toasts"></div>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="logo">⚡</div>
+      <span>AutoCode</span>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">Menu</div>
+      <button class="nav-btn active" data-page="dashboard"><span class="ico">📊</span><span class="nav-label">Dashboard</span></button>
+      <button class="nav-btn" data-page="repos"><span class="ico">📁</span><span class="nav-label">Repositories</span></button>
+      <button class="nav-btn" data-page="jobs"><span class="ico">🤖</span><span class="nav-label">Jobs</span></button>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">Review</div>
+      <button class="nav-btn" data-page="approvals"><span class="ico">✓</span><span class="nav-label">Approvals</span><span class="nav-badge" id="nav-pending-badge" style="display:none"></span></button>
+      <button class="nav-btn" data-page="logs"><span class="ico">📋</span><span class="nav-label">Logs</span></button>
+    </div>
+
+    <div class="sidebar-bottom">
+      <button class="nav-btn" onclick="showApiKeyModal()"><span class="ico">🔑</span><span class="nav-label">API Key</span></button>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px;font-size:11px;color:var(--text-4)">
+        <span class="status-dot"></span>
+        <span class="nav-label">Online</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="header">
+      <div class="header-row">
+        <div class="header-left">
+          <h1 id="page-title">Dashboard</h1>
+          <p id="page-subtitle">System overview & recent activity</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-ghost btn-sm" onclick="loadPageData(currentPage)">↻ Refresh</button>
+          <button class="btn btn-primary" onclick="loadRepoSelect(); openModal('create-job-modal')">+ New Job</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- DASHBOARD -->
+      <div class="page active" id="page-dashboard">
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-label"><span class="dot purple"></span>Total Jobs</div>
+            <div class="stat-value" id="stat-total-jobs">—</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label"><span class="dot green"></span>Completed</div>
+            <div class="stat-value" id="stat-completed">—</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label"><span class="dot amber"></span>Pending Approval</div>
+            <div class="stat-value" id="stat-pending">—</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label"><span class="dot blue"></span>Repositories</div>
+            <div class="stat-value" id="stat-repos">—</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-head">
+              <h3>Recent Jobs</h3>
+              <button class="btn btn-ghost btn-xs" onclick="navigateTo('jobs')">View All →</button>
+            </div>
+            <div class="card-body">
+              <table>
+                <thead><tr><th>Title</th><th>Status</th><th>Repo</th><th>Created</th></tr></thead>
+                <tbody id="recent-jobs-body"><tr><td colspan="4" class="empty" style="padding:32px"><p>Loading...</p></td></tr></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h3>System Status</h3></div>
+            <div class="card-body" id="system-status"><p style="padding:20px;color:var(--text-4)">Loading...</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REPOS -->
+      <div class="page" id="page-repos">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <h2 style="font-size:16px;font-weight:700">Repositories</h2>
+          <button class="btn btn-primary btn-sm" onclick="openModal('add-repo-modal')">+ Add Repo</button>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <table>
+              <thead><tr><th>Repository</th><th>Provider</th><th>Branch</th><th>Jobs</th><th>Added</th><th></th></tr></thead>
+              <tbody id="repos-table-body"><tr><td colspan="6" class="empty"><p>Loading...</p></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- JOBS -->
+      <div class="page" id="page-jobs">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <h2 style="font-size:16px;font-weight:700">Jobs</h2>
+          <button class="btn btn-primary btn-sm" onclick="loadRepoSelect(); openModal('create-job-modal')">+ Create Job</button>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <table>
+              <thead><tr><th>Title</th><th>Status</th><th>Risk</th><th>Repo</th><th>Tokens</th><th>Cost</th><th>Created</th></tr></thead>
+              <tbody id="jobs-table-body"><tr><td colspan="7" class="empty"><p>Loading...</p></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- APPROVALS -->
+      <div class="page" id="page-approvals">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+          <h2 style="font-size:16px;font-weight:700">Pending Approvals</h2>
+          <span class="pill pill-amber" id="pending-count">0</span>
+        </div>
+        <div id="approvals-list"><p style="color:var(--text-4)">Loading...</p></div>
+      </div>
+
+      <!-- LOGS -->
+      <div class="page" id="page-logs">
+        <div class="grid-2" style="grid-template-columns:260px 1fr">
+          <div class="card">
+            <div class="card-head"><h3>Jobs</h3></div>
+            <div class="card-body padded" id="logs-job-list" style="padding:8px"><p style="color:var(--text-4);font-size:13px">Loading...</p></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3>Log Output</h3></div>
+            <div class="card-body padded" id="logs-content">
+              <div class="empty"><div class="ico">📋</div><h3>Select a job</h3></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- MODALS -->
+
+<!-- API Key -->
+<div class="modal-bg" id="api-key-modal">
+  <div class="modal">
+    <div class="modal-top"><h2>API Key</h2><button class="modal-x" onclick="closeModal('api-key-modal')">✕</button></div>
+    <div class="modal-bd">
+      <p style="color:var(--text-3);margin-bottom:16px;font-size:13px">Enter your API key to authenticate with AutoCode.</p>
+      <div class="field"><label>API Key</label><input type="text" id="api-key-input" placeholder="cxxxxxxxxxx..." spellcheck="false"></div>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-ghost" onclick="closeModal('api-key-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveApiKey()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Repo -->
+<div class="modal-bg" id="add-repo-modal">
+  <div class="modal">
+    <div class="modal-top"><h2>Add Repository</h2><button class="modal-x" onclick="closeModal('add-repo-modal')">✕</button></div>
+    <form onsubmit="addRepo(event)">
+      <div class="modal-bd">
+        <div class="field"><label>Name</label><input type="text" name="name" placeholder="my-project" required></div>
+        <div class="field"><label>Clone URL</label><input type="url" name="cloneUrl" placeholder="https://github.com/user/repo.git" required></div>
+        <div class="field-row">
+          <div class="field"><label>Provider</label><select name="provider"><option>GITHUB</option><option>GITLAB</option><option>BITBUCKET</option></select></div>
+          <div class="field"><label>Branch</label><input type="text" name="defaultBranch" value="main"></div>
+        </div>
+        <div class="field"><label>Access Token (optional)</label><input type="password" name="accessToken" placeholder="ghp_..."></div>
+      </div>
+      <div class="modal-ft">
+        <button type="button" class="btn btn-ghost" onclick="closeModal('add-repo-modal')">Cancel</button>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Create Job -->
+<div class="modal-bg" id="create-job-modal">
+  <div class="modal">
+    <div class="modal-top"><h2>Create Job</h2><button class="modal-x" onclick="closeModal('create-job-modal')">✕</button></div>
+    <form onsubmit="createJob(event)">
+      <div class="modal-bd">
+        <div class="field"><label>Title</label><input type="text" name="title" placeholder="Add user authentication" required></div>
+        <div class="field"><label>Description</label><textarea name="description" placeholder="Describe the task for the AI agent..." required></textarea></div>
+        <div class="field"><label>Repository</label><select name="repoId" id="job-repo-select" required><option value="">Loading...</option></select></div>
+        <div class="field-row">
+          <div class="field"><label>Task Type</label><select name="taskType"><option>GENERAL</option><option>FEATURE</option><option>BUGFIX</option><option>REFACTOR</option><option>TEST</option><option>CRUD</option><option>DOCS</option></select></div>
+          <div class="field"><label>Priority</label><input type="number" name="priority" value="0" min="0" max="100"></div>
+        </div>
+      </div>
+      <div class="modal-ft">
+        <button type="button" class="btn btn-ghost" onclick="closeModal('create-job-modal')">Cancel</button>
+        <button type="submit" class="btn btn-primary">Create Job</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Job Detail -->
+<div class="modal-bg" id="job-detail-modal">
+  <div class="modal" style="width:640px">
+    <div class="modal-top"><h2 id="job-detail-title">Job Detail</h2><button class="modal-x" onclick="closeModal('job-detail-modal')">✕</button></div>
+    <div class="modal-bd" id="job-detail-content">Loading...</div>
+    <div class="modal-ft" id="job-detail-actions"></div>
+  </div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>

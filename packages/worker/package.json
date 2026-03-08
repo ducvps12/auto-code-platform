@@ -1,0 +1,25 @@
+{
+  "name": "@auto-code/worker",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "test": "echo \"No tests yet\""
+  },
+  "dependencies": {
+    "@auto-code/shared": "*",
+    "@auto-code/database": "*",
+    "@prisma/client": "^6.3.0",
+    "ioredis": "^5.4.2",
+    "@google/generative-ai": "^0.24.0",
+    "simple-git": "^3.27.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "tsx": "^4.19.0",
+    "@types/node": "^22.12.0"
+  }
+}

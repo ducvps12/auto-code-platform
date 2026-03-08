@@ -1,0 +1,264 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============ USERS & AUTH ============
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  avatarUrl String?
+  apiKey    String   @unique @default(cuid())
+  plan      Plan     @default(FREE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  teams     TeamMember[]
+  repos     Repository[]
+  jobs      Job[]
+  approvals Approval[]
+}
+
+model Team {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+
+  members TeamMember[]
+  repos   Repository[]
+}
+
+model TeamMember {
+  id     String   @id @default(cuid())
+  role   TeamRole @default(MEMBER)
+  userId String
+  teamId String
+
+  user User @relation(fields: [userId], references: [id])
+  team Team @relation(fields: [teamId], references: [id])
+
+  @@unique([userId, teamId])
+}
+
+// ============ REPOSITORIES ============
+
+model Repository {
+  id            String      @id @default(cuid())
+  name          String
+  cloneUrl      String
+  provider      GitProvider @default(GITHUB)
+  defaultBranch String      @default("main")
+  accessToken   String? // encrypted
+  userId        String
+  teamId        String?
+  createdAt     DateTime    @default(now())
+
+  user User       @relation(fields: [userId], references: [id])
+  team Team?      @relation(fields: [teamId], references: [id])
+  jobs Job[]
+}
+
+// ============ JOBS ============
+
+model Job {
+  id          String    @id @default(cuid())
+  title       String
+  description String    @db.Text
+  taskType    TaskType  @default(GENERAL)
+  riskLevel   RiskLevel @default(MEDIUM)
+  status      JobStatus @default(QUEUED)
+  priority    Int       @default(0)
+
+  // Config
+  targetBranch String?
+  workBranch   String?
+  maxRetries   Int @default(3)
+  timeoutMs    Int @default(600000)
+  maxTokens    Int @default(100000)
+
+  // Results
+  prUrl       String?
+  diffSummary String?  @db.Text
+  safetyScore Float?
+  tokensUsed  Int      @default(0)
+  costUsd     Float    @default(0)
+
+  // Relations
+  userId      String
+  repoId      String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  startedAt   DateTime?
+  completedAt DateTime?
+
+  user      User       @relation(fields: [userId], references: [id])
+  repo      Repository @relation(fields: [repoId], references: [id])
+  runs      Run[]
+  approvals Approval[]
+
+  @@index([status])
+  @@index([userId])
+  @@index([repoId])
+}
+
+model Run {
+  id        String    @id @default(cuid())
+  jobId     String
+  attempt   Int       @default(1)
+  status    RunStatus @default(RUNNING)
+  startedAt DateTime  @default(now())
+  endedAt   DateTime?
+
+  job   Job    @relation(fields: [jobId], references: [id])
+  steps Step[]
+  logs  Log[]
+
+  @@index([jobId])
+}
+
+model Step {
+  id        String     @id @default(cuid())
+  runId     String
+  phase     StepPhase
+  status    StepStatus @default(PENDING)
+  input     Json?
+  output    Json?
+  error     String?    @db.Text
+  startedAt DateTime?
+  endedAt   DateTime?
+  order     Int
+
+  run Run @relation(fields: [runId], references: [id])
+
+  @@index([runId])
+}
+
+model Log {
+  id        String   @id @default(cuid())
+  runId     String
+  level     LogLevel @default(INFO)
+  message   String   @db.Text
+  metadata  Json?
+  timestamp DateTime @default(now())
+
+  run Run @relation(fields: [runId], references: [id])
+
+  @@index([runId, timestamp])
+}
+
+// ============ APPROVALS ============
+
+model Approval {
+  id        String            @id @default(cuid())
+  jobId     String
+  userId    String
+  decision  ApprovalDecision?
+  comment   String?           @db.Text
+  createdAt DateTime          @default(now())
+  decidedAt DateTime?
+
+  job  Job  @relation(fields: [jobId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([jobId])
+}
+
+// ============ ENUMS ============
+
+enum Plan {
+  FREE
+  PRO
+  TEAM
+  ENTERPRISE
+}
+
+enum TeamRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+enum GitProvider {
+  GITHUB
+  GITLAB
+  BITBUCKET
+}
+
+enum TaskType {
+  GENERAL
+  BUGFIX
+  FEATURE
+  REFACTOR
+  TEST
+  CRUD
+  DOCS
+}
+
+enum RiskLevel {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum JobStatus {
+  QUEUED
+  PLANNING
+  CODING
+  TESTING
+  REVIEWING
+  AWAITING_APPROVAL
+  APPROVED
+  MERGING
+  COMPLETED
+  FAILED
+  CANCELLED
+  ROLLED_BACK
+}
+
+enum RunStatus {
+  RUNNING
+  SUCCEEDED
+  FAILED
+  CANCELLED
+}
+
+enum StepPhase {
+  CLONE
+  INDEX_REPO
+  PLAN
+  CODE
+  LINT
+  TEST
+  BUILD
+  REVIEW
+  PUSH
+  CREATE_PR
+}
+
+enum StepStatus {
+  PENDING
+  RUNNING
+  SUCCEEDED
+  FAILED
+  SKIPPED
+}
+
+enum LogLevel {
+  DEBUG
+  INFO
+  WARN
+  ERROR
+}
+
+enum ApprovalDecision {
+  APPROVED
+  REJECTED
+  REQUEST_CHANGES
+}
