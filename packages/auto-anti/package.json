@@ -1,0 +1,174 @@
+{
+  "name": "auto-accept-scroll",
+  "displayName": "AG Auto Click & Scroll",
+  "description": "Auto-click Run/Allow/Accept buttons & auto-scroll chat for Antigravity. Smart Accept v9.0 — premium dashboard, speed profiles, activity log, API Proxy.",
+  "version": "9.0.0",
+  "publisher": "nemark",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "antigravity",
+    "auto-accept",
+    "auto-scroll",
+    "auto-click",
+    "nemark",
+    "gemini",
+    "ai-coding"
+  ],
+  "author": {
+    "name": "Nemark Digital",
+    "url": "https://shop.nemarkdigital.com"
+  },
+  "icon": "icon.png",
+  "homepage": "https://shop.nemarkdigital.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hieuminhnguyen4664-jpg/auto-anti"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "autoAccept.openSettings",
+        "title": "Auto Accept: Open Settings"
+      },
+      {
+        "command": "autoAccept.enable",
+        "title": "Auto Accept: Enable (Inject & Reload)"
+      },
+      {
+        "command": "autoAccept.disable",
+        "title": "Auto Accept: Disable (Remove & Reload)"
+      },
+      {
+        "command": "autoAccept.toggleAccept",
+        "title": "Auto Accept: Toggle Accept ON/OFF"
+      },
+      {
+        "command": "autoAccept.toggleScroll",
+        "title": "Auto Accept: Toggle Scroll ON/OFF"
+      },
+      {
+        "command": "autoAccept.toggleAll",
+        "title": "Auto Accept: Toggle All ON/OFF"
+      },
+      {
+        "command": "autoAccept.proxyToggle",
+        "title": "Auto Accept: Toggle API Proxy"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "autoAccept.toggleAll",
+        "key": "ctrl+alt+a",
+        "mac": "cmd+alt+a"
+      },
+      {
+        "command": "autoAccept.openSettings",
+        "key": "ctrl+alt+s",
+        "mac": "cmd+alt+s"
+      }
+    ],
+    "configuration": {
+      "title": "Auto Accept & Scroll",
+      "properties": {
+        "autoAccept.acceptEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Bật/tắt auto-click cho các nút approval"
+        },
+        "autoAccept.scrollEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Bật/tắt auto-scroll khung chat"
+        },
+        "autoAccept.clickInterval": {
+          "type": "number",
+          "default": 1000,
+          "description": "Chu kỳ kiểm tra nút click (ms)"
+        },
+        "autoAccept.scrollInterval": {
+          "type": "number",
+          "default": 500,
+          "description": "Chu kỳ kiểm tra scroll (ms)"
+        },
+        "autoAccept.commandsApiEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Sử dụng Commands API để accept/retry (ổn định hơn DOM click)"
+        },
+        "autoAccept.patterns": {
+          "type": "object",
+          "default": {
+            "Run": true,
+            "Allow": true,
+            "Always Allow": true,
+            "Accept": true,
+            "Keep Waiting": true,
+            "Retry": true,
+            "Continue": true,
+            "Allow Once": true,
+            "Allow This Conversion": true,
+            "Accept all": false
+          },
+          "description": "Danh sách button cần auto-click (true = bật)"
+        },
+        "autoAccept.nativeDialogEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Tự nhấn Keep Waiting trong native Windows dialog"
+        },
+        "autoAccept.proxyPort": {
+          "type": "number",
+          "default": 8045,
+          "description": "Cổng TCP cho API Proxy cục bộ"
+        },
+        "autoAccept.proxyAutoStart": {
+          "type": "boolean",
+          "default": false,
+          "description": "Tự động khởi chạy API Proxy khi extension khởi động"
+        },
+        "autoAccept.proxyTimeout": {
+          "type": "number",
+          "default": 120,
+          "description": "Timeout (giây) cho request proxy"
+        },
+        "autoAccept.proxyAllowLan": {
+          "type": "boolean",
+          "default": false,
+          "description": "Cho phép truy cập LAN (bind 0.0.0.0)"
+        },
+        "autoAccept.proxyAuthMode": {
+          "type": "string",
+          "default": "auto",
+          "enum": [
+            "off",
+            "all",
+            "allExceptHealth",
+            "auto"
+          ],
+          "description": "Chế độ xác thực API Proxy"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "npx @vscode/vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.3.0",
+    "@vscode/vsce": "^2.22.0"
+  }
+}
