@@ -10,12 +10,19 @@ datasource db {
 // ============ USERS & AUTH ============
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  avatarUrl String?
-  apiKey    String   @unique @default(cuid())
-  plan      Plan     @default(FREE)
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  avatarUrl     String?
+  passwordHash  String?
+  apiKey        String    @unique @default(cuid())
+  plan          Plan      @default(FREE)
+  isActive      Boolean   @default(true)
+
+  // Billing
+  stripeCustomerId String?
+  billingEmail     String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -23,6 +30,21 @@ model User {
   repos     Repository[]
   jobs      Job[]
   approvals Approval[]
+  sessions  Session[]
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  userId       String
+  refreshToken String   @unique
+  userAgent    String?
+  ipAddress    String?
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model Team {

@@ -9,6 +9,7 @@ import { jobsRouter } from './routes/jobs.js';
 import { reposRouter } from './routes/repos.js';
 import { approvalsRouter } from './routes/approvals.js';
 import { runsRouter } from './routes/runs.js';
+import { authRouter } from './routes/auth.js';
 import { authMiddleware } from './middleware/auth.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
@@ -30,17 +31,35 @@ app.get('/health', (_req, res) => {
   res.json({
     status: 'ok',
     service: 'auto-code-api',
-    version: '0.1.0',
+    version: '0.2.0',
     timestamp: new Date().toISOString(),
   });
 });
 
-// ============ ROUTES (auth required) ============
+// ============ AUTH ROUTES (no auth required) ============
+app.use('/api/auth', authRouter);
+
+// ============ PROTECTED ROUTES ============
 app.use('/api', authMiddleware);
 app.use('/api/jobs', jobsRouter);
 app.use('/api/repos', reposRouter);
 app.use('/api/approvals', approvalsRouter);
 app.use('/api/runs', runsRouter);
+
+// ============ WAF PROXY API ============
+app.get('/api/waf/stats', async (_req, res) => {
+  try {
+    const resp = await fetch('http://127.0.0.1:9090/api/stats');
+    res.json(await resp.json());
+  } catch { res.json({ error: 'WAF not reachable', online: false }); }
+});
+
+app.get('/api/waf/threats', async (_req, res) => {
+  try {
+    const resp = await fetch('http://127.0.0.1:9090/api/threats');
+    res.json(await resp.json());
+  } catch { res.json({ threats: [], online: false }); }
+});
 
 // ============ DASHBOARD FALLBACK ============
 app.get('*', (_req, res) => {
