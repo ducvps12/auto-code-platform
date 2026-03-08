@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nemark Academy — Học lập trình từ Zero đến Hero</title>
+  <meta name="description" content="Nền tảng học tập số từ Nemark Digital Solutions. Tư vấn giáo dục lập trình cho mọi lứa tuổi.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/academy/academy.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/academy/" class="nav-brand">
+      <span class="brand-icon">🎓</span>
+      <span class="brand-text">Nemark <span class="brand-accent">Academy</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#courses">Khóa học</a>
+      <a href="#playground">Code Playground</a>
+      <a href="#paths">Lộ trình</a>
+      <a href="/">Dashboard ⚡</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn btn-ghost" onclick="showLogin()">Đăng nhập</button>
+      <button class="btn btn-primary" onclick="showRegister()">Bắt đầu học</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-glow glow-1"></div>
+    <div class="hero-glow glow-2"></div>
+    <div class="hero-grid"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">🚀 Nền tảng học tập số từ Nemark Digital Solutions</div>
+    <h1>Học lập trình<br><span class="gradient-text">từ Zero đến Hero</span></h1>
+    <p class="hero-sub">Tư vấn giáo dục lập trình cho mọi lứa tuổi. Code trực tiếp trên trình duyệt, được AI hướng dẫn cá nhân hóa.</p>
+    <div class="hero-cta">
+      <button class="btn btn-primary btn-lg" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">
+        Khám phá khóa học →
+      </button>
+      <button class="btn btn-glass btn-lg" onclick="document.getElementById('playground').scrollIntoView({behavior:'smooth'})">
+        ▶ Thử Code ngay
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="stat-num" data-target="12">0</span><span class="stat-label">Khóa học</span></div>
+      <div class="hero-stat"><span class="stat-num" data-target="500">0</span><span class="stat-label">Bài học</span></div>
+      <div class="hero-stat"><span class="stat-num" data-target="6">0</span><span class="stat-label">Ngôn ngữ</span></div>
+      <div class="hero-stat"><span class="stat-num" data-target="24">0</span><span class="stat-label">Giờ nội dung</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section class="section" id="courses">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-tag">📚 Khóa học</div>
+      <h2>Bắt đầu hành trình lập trình</h2>
+      <p>Từ nhỏ đến lớn, từ cơ bản đến nâng cao</p>
+    </div>
+
+    <div class="course-filters">
+      <button class="filter active" data-filter="all">Tất cả</button>
+      <button class="filter" data-filter="beginner">👶 Cho trẻ em</button>
+      <button class="filter" data-filter="web">🌐 Web Dev</button>
+      <button class="filter" data-filter="python">🐍 Python</button>
+      <button class="filter" data-filter="ai">🤖 AI/ML</button>
+      <button class="filter" data-filter="security">🛡️ Security</button>
+    </div>
+
+    <div class="course-grid" id="course-grid">
+      <!-- JS will render courses -->
+    </div>
+  </div>
+</section>
+
+<!-- CODE PLAYGROUND -->
+<section class="section section-dark" id="playground">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-tag">💻 Interactive Code</div>
+      <h2>Code Playground</h2>
+      <p>Viết code trực tiếp — không cần cài đặt gì</p>
+    </div>
+
+    <div class="playground">
+      <div class="pg-header">
+        <div class="pg-tabs">
+          <button class="pg-tab active" data-lang="javascript">JavaScript</button>
+          <button class="pg-tab" data-lang="python">Python</button>
+          <button class="pg-tab" data-lang="html">HTML/CSS</button>
+        </div>
+        <div class="pg-actions">
+          <button class="btn btn-sm btn-primary" id="run-btn" onclick="runCode()">▶ Chạy</button>
+          <button class="btn btn-sm btn-ghost" onclick="resetCode()">↻ Reset</button>
+          <button class="btn btn-sm btn-glass" onclick="askAI()">🤖 Hỏi AI</button>
+        </div>
+      </div>
+      <div class="pg-body">
+        <div class="pg-editor">
+          <div class="pg-line-numbers" id="line-numbers"></div>
+          <textarea id="code-editor" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea>
+        </div>
+        <div class="pg-output">
+          <div class="pg-output-header">Output</div>
+          <pre id="code-output">// Nhấn ▶ Chạy để xem kết quả</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEARNING PATHS -->
+<section class="section" id="paths">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-tag">🗺️ Lộ trình</div>
+      <h2>Chọn con đường của bạn</h2>
+      <p>Lộ trình được thiết kế bởi các chuyên gia</p>
+    </div>
+
+    <div class="paths-grid">
+      <div class="path-card">
+        <div class="path-icon" style="background:linear-gradient(135deg,#f472b6,#ec4899)">👶</div>
+        <h3>Kids Coding</h3>
+        <p>6-12 tuổi • Scratch, trò chơi, tư duy logic</p>
+        <div class="path-steps">
+          <div class="path-step done">Tư duy logic</div>
+          <div class="path-step done">Scratch cơ bản</div>
+          <div class="path-step">Game đơn giản</div>
+          <div class="path-step">Dự án sáng tạo</div>
+        </div>
+        <span class="path-duration">8 tuần • 16 bài</span>
+      </div>
+
+      <div class="path-card featured">
+        <div class="path-badge">🔥 Phổ biến</div>
+        <div class="path-icon" style="background:linear-gradient(135deg,#7C3AED,#9333EA)">🌐</div>
+        <h3>Full-Stack Web</h3>
+        <p>16+ tuổi • HTML, CSS, JS, Node.js, React</p>
+        <div class="path-steps">
+          <div class="path-step done">HTML/CSS</div>
+          <div class="path-step done">JavaScript</div>
+          <div class="path-step">React.js</div>
+          <div class="path-step">Node.js</div>
+          <div class="path-step">Full-Stack Project</div>
+        </div>
+        <span class="path-duration">16 tuần • 64 bài</span>
+      </div>
+
+      <div class="path-card">
+        <div class="path-icon" style="background:linear-gradient(135deg,#34d399,#10b981)">🤖</div>
+        <h3>AI & Automation</h3>
+        <p>18+ tuổi • Python, AI, Machine Learning</p>
+        <div class="path-steps">
+          <div class="path-step done">Python cơ bản</div>
+          <div class="path-step">Data Analysis</div>
+          <div class="path-step">Machine Learning</div>
+          <div class="path-step">AI Applications</div>
+        </div>
+        <span class="path-duration">12 tuần • 48 bài</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPANY INFO -->
+<section class="section section-dark" id="about">
+  <div class="container">
+    <div class="company-info">
+      <div class="company-left">
+        <div class="section-tag">🏢 Về chúng tôi</div>
+        <h2>Nemark Digital Solutions</h2>
+        <p>Nghiên cứu khoa học và phát triển công nghệ trong lĩnh vực khoa học kỹ thuật và công nghệ</p>
+        <div class="company-details">
+          <div class="detail"><span class="detail-label">MST</span><span>0111278699</span></div>
+          <div class="detail"><span class="detail-label">Đại diện</span><span>Mai Tiến Đức</span></div>
+          <div class="detail"><span class="detail-label">Địa chỉ</span><span>Số 19, Đường 452, Thôn Linh Sơn, Xã Hạ Bằng, Hà Nội</span></div>
+          <div class="detail"><span class="detail-label">Tình trạng</span><span class="badge-green">Đang hoạt động</span></div>
+        </div>
+      </div>
+      <div class="company-right">
+        <div class="services-grid">
+          <div class="service-item">
+            <span class="service-icon">💻</span>
+            <span>Lập trình & Phần mềm</span>
+          </div>
+          <div class="service-item">
+            <span class="service-icon">🛡️</span>
+            <span>Bảo mật & WAF</span>
+          </div>
+          <div class="service-item">
+            <span class="service-icon">📡</span>
+            <span>Viễn thông & Hạ tầng</span>
+          </div>
+          <div class="service-item">
+            <span class="service-icon">🎓</span>
+            <span>Tư vấn giáo dục CNTT</span>
+          </div>
+          <div class="service-item">
+            <span class="service-icon">🎮</span>
+            <span>Game & Nội dung số</span>
+          </div>
+          <div class="service-item">
+            <span class="service-icon">🤖</span>
+            <span>AI & Automation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">🎓 Nemark Academy</div>
+        <p class="footer-desc">Nền tảng tư vấn giáo dục lập trình<br>© 2026 Nemark Digital Solutions Co., Ltd</p>
+      </div>
+      <div>
+        <h4>Sản phẩm</h4>
+        <a href="/">⚡ AutoCode Platform</a>
+        <a href="/academy/">🎓 Academy</a>
+        <a href="#">🛡️ Mango WAF</a>
+        <a href="#">🔗 ProxVN Tunnel</a>
+      </div>
+      <div>
+        <h4>Liên hệ</h4>
+        <a href="tel:0914659183">📞 0914 659 183</a>
+        <a href="mailto:contact@nemark.digital">✉️ contact@nemark.digital</a>
+        <a href="#">📍 Hà Nội, Việt Nam</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- AUTH MODALS -->
+<div class="modal-bg" id="login-modal">
+  <div class="modal">
+    <div class="modal-top"><h2>Đăng nhập</h2><button class="modal-x" onclick="closeModal('login-modal')">✕</button></div>
+    <form onsubmit="handleLogin(event)">
+      <div class="modal-bd">
+        <div class="field"><label>Email</label><input type="email" name="email" required placeholder="your@email.com"></div>
+        <div class="field"><label>Mật khẩu</label><input type="password" name="password" required placeholder="••••••••"></div>
+      </div>
+      <div class="modal-ft">
+        <button type="button" class="btn btn-ghost" onclick="closeModal('login-modal');showRegister()">Chưa có tài khoản?</button>
+        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-bg" id="register-modal">
+  <div class="modal">
+    <div class="modal-top"><h2>Tạo tài khoản</h2><button class="modal-x" onclick="closeModal('register-modal')">✕</button></div>
+    <form onsubmit="handleRegister(event)">
+      <div class="modal-bd">
+        <div class="field"><label>Họ tên</label><input type="text" name="name" required placeholder="Nguyễn Văn A"></div>
+        <div class="field"><label>Email</label><input type="email" name="email" required placeholder="your@email.com"></div>
+        <div class="field"><label>Mật khẩu</label><input type="password" name="password" required minlength="8" placeholder="Tối thiểu 8 ký tự"></div>
+      </div>
+      <div class="modal-ft">
+        <button type="button" class="btn btn-ghost" onclick="closeModal('register-modal');showLogin()">Đã có tài khoản?</button>
+        <button type="submit" class="btn btn-primary">Đăng ký miễn phí</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/academy/academy.js"></script>
+</body>
+</html>
